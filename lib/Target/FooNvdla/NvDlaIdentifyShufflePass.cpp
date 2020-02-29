@@ -55,10 +55,6 @@ Pass::ReturnType NvDlaIdentifyShufflePass::runOnComputeGraph(ComputeGraph& pCG)
       }
     }
   }
-
-  //---------------------------------------------------------------------------
-  // Replace every Reshape-Transpose-Reshape pattern with a single Shuffle IR.
-  //---------------------------------------------------------------------------
   
   for (Use* user1 : user) {
 
@@ -70,13 +66,8 @@ Pass::ReturnType NvDlaIdentifyShufflePass::runOnComputeGraph(ComputeGraph& pCG)
     //Tensor* shape1_tensor = reshape1->getInput(1);
     Tensor* user = static_cast<ComputeOperator*>(op.getInput(0)->getDefine());
     //Tensor* reshape1_out_tensor = reshape1->getOutput(0);
-    //Tensor* transpose_out = transpose->getOutput(0);
-    //Tensor* shape2_tensor = reshape2->getInput(1);
-    //auto shape2_initializer = static_cast<ComputeOperator*>(shape2_tensor->getDefine());
-    //Tensor* output_tensor = user->getOutput(0);
 
-    // Remove the edges between some operators and their input/output tensors.
-    // Remove an edge means to erase the records within an operator's data structure about its input tensors.
+    // show input 
     user->showAllInputs();
     user->showAllOutputs();
 
