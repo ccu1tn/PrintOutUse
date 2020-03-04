@@ -24,7 +24,7 @@ public:
   ReturnType runOnComputeGraph(ComputeGraph& pCG) override;
   
 private:
-  bool is_shuffle(Use* user);
+  bool is_shuffle(Reshape* reshape1);
 };
 
 } // namespace foonvdla
