@@ -34,6 +34,7 @@
 #include <onnc/Transforms/BuildInputOperators.h>
 #include <onnc/Transforms/BuildOutputOperators.h>
 #include <onnc/Transforms/DeadNodeElimination.h>
+//#include <onnc/Transforms/NvDlaIdentifyShufflePass.h>
 #include <onnc/Transforms/RemoveTrainingNodes.h>
 #include <onnc/Transforms/TensorSel.h>
 #include <onnc/Transforms/TensorSel/Standards/ConvLower.h>
@@ -78,7 +79,7 @@ void FooNvdlaBackend::addOnncIrOptimization(PassManager& pPM, OptimizationOption
 
   pPM.add<PrintONNCIRPass>();
   pPM.add<NvDlaIdentifyShufflePass>();
-  pPM.add<PrintONNCIRPass>();
+  //pPM.add<PrintONNCIRPass>();
 }
 
 void FooNvdlaBackend::addTensorSched(PassManager& pPM)
@@ -87,6 +88,8 @@ void FooNvdlaBackend::addTensorSched(PassManager& pPM)
   // topological order, which totally respects the data dependency.
   // However, that might not be an optimized order for certain objective.
   // Add a scheduling optimization pass here.
+  //pPM.add<NvDlaIdentifyShufflePass>();
+  //pPM.add<PrintONNCIRPass>();
 }
 
 void FooNvdlaBackend::addMemAlloc(PassManager& pPM)
@@ -113,7 +116,9 @@ void FooNvdlaBackend::addCodeEmit(PassManager& pPM, const Path& pOutput)
   pPM.add<CodeEmit>(ceVisitor)
      .add<NvDlaTaskSubmitPass>(&m_pMeta, BLOB_DLA_VERSION, BLOB_EMU_VERSION)
      .add<NvDlaFileGenPass>(&m_pMeta, LOADABLE_VERSION)
+     //.add<NvDlaIdentifyShufflePass>(*this, m_pMeta)
     ;
+  //pPM.add<NvDlaIdentifyShufflePass>();
 }
 
 void FooNvdlaBackend::RegisterLowers(LowerRegistry& pRegistry) const

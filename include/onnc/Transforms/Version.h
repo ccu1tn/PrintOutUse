@@ -13,11 +13,9 @@
 #include <onnc/Core/CustomPass.h>
 
 namespace onnc {
+namespace foonvdla {
 
-/** \class NvDlaIdentifyShuffle
- *  
- */
-class NvDlaIdentifyShuffle : public CustomPass<NvDlaIdentifyShuffle>
+class NvDlaIdentifyShufflePass : public CustomPass<NvDlaIdentifyShufflePass>
 {
 public:
   NvDlaIdentifyShuffle() = default;
@@ -31,7 +29,7 @@ public:
   StringRef getPassName() const override { return "NvDlaIdentifyShuffle"; }
 };
 
-ModulePass* CreateNvDlaIdentifyShufflePass();
+ModulePass* NvDlaIdentifyShufflePass();
 
 } // namespace of onnc
 

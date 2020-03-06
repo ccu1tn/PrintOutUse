@@ -10,6 +10,7 @@
 #include <onnc/Transforms/TensorSel.h>
 #include <onnc/IR/IRBuilder.h>
 #include <onnc/Core/PassManager.h>
+//#include <onnc/NvDlaIdentifyShufflePass.h>
 #include <onnc/Transforms/DeadNodeElimination.h>
 #include <onnc/Transforms/RemoveTrainingNodes.h>
 #include <onnc/Analysis/UpdateGraphOutputSize.h>
@@ -162,6 +163,7 @@ SKYPAT_F(TensorSelTest, alexnet)
   PassManager::State state;
 
   pm.add(CreateRemoveTrainingNodesPass(), state);
+  //pm.add(NvDlaIdentifyShufflePass(), state);
   pm.add(CreateUpdateGraphOutputSizePass(), state);
   pm.add(CreateDeadNodeEliminationPass(), state);
   pm.add(CreateBookONNXGraphs(), state);
